@@ -148,21 +148,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
       function displayResults(data) {
         // <h2>Results</h2>
-        resultsContainer.innerHTML += `
-                
-                <p><strong>City:</strong>${currentCity}</p>
-                <p><strong>Your guess:</strong> ${data["user guess"]} ${
-          data["unit"]
-        }</p>
-                <p><strong>Result:</strong>${
-                  checkScore(data["user guess"], currentTemp, false)
-                    ? " Riktig"
-                    : " Feil"
+        resultsContainer.innerHTML += `            
+                <p><strong>City: </strong>${currentCity}</p>
+                <p><strong>Your guess: </strong> ${data["user guess"]} ${
+                data["unit"]
                 }</p>
-                <p><strong>Actual temp:</strong>${currentTemp}</p>
-                <br></br>
-                
-               
+                <p><strong>Result: </strong>${
+                  checkScore(data["user guess"], currentTemp, false)
+                    ? " Win"
+                    : " Fail"
+                }</p>
+                <p><strong>Actual temp: </strong>${currentTemp}</p>
+                <br></br>            
             `;
         saveStorage(resultsContainer.innerHTML);
       }
