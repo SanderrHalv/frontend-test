@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const citiesContainer = document.getElementById('cities-container');
-    const refreshButton = document.getElementById('refresh-cities');
+    const citiesContainer = document.querySelector('#cities-container');
+    const refreshButton = document.querySelector('#refresh-cities');
+    const form = document.querySelector('form');
+    const resultsContainer = document.querySelector('#results');
+    const countdownTimer = document.querySelector('#countdown');
     const weatherUrl = "https://api.open-meteo.com/v1/forecast";
     const url = 'https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=3';
     const options = {
@@ -81,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 );
                 currentTemp = parseInt(data.current.temperature_2m);
                 currentCity = city.name;
+
             });
 
             citiesContainer.appendChild(cityDiv);
@@ -118,8 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchCities();
 
-    const form = document.querySelector('form');
-    const resultsContainer = document.querySelector('#results');
     loadStorage();
 
     form.addEventListener('submit', (e) => {
@@ -146,15 +148,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
       }
 
-      function displayResults(data) {
-        // <h2>Results</h2>
+    function displayResults(data) {
+    // <h2>Results</h2>
         resultsContainer.innerHTML += `            
                 <p><strong>City: </strong>${currentCity}</p>
                 <p><strong>Your guess: </strong> ${data["user guess"]} ${
                 data["unit"]
                 }</p>
                 <p><strong>Result: </strong>${
-                  checkScore(data["user guess"], currentTemp, false)
+                    checkScore(data["user guess"], currentTemp, false)
                     ? " Win"
                     : " Fail"
                 }</p>
@@ -162,21 +164,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 <br></br>            
             `;
         saveStorage(resultsContainer.innerHTML);
-      }
+    }
     
 
     function startCountdown() {
         let timeLeft = 7;
-        citiesContainer.innerHTML = `<p>You have ${timeLeft} seconds to submit your guess</p>`;
 
         countdownTimer = setInterval (() => {
             timeLeft--;
             if (timeLeft <= 0) {
                 clearInterval(countdownTimer);
                 displayResults({message: 'Time is up! you lost'});
-                citiesContainer.innerHTML = `<p> Time is up! You lost`;
+                countdownTimer.innerHTML = `<p> Time is up! You lost`;
             } else {
-                citiesContainer.innerHTML = `<p> seconds left ${timeLeft}</p>`
+                countdownTimer.innerHTML = `<p> seconds left ${timeLeft}</p>`
             }
         }, 1000);
     }
