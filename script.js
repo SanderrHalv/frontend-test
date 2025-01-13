@@ -102,19 +102,19 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           console.log("No history found");
         }
-      }
+    }
     
-      function saveStorage(guess) {
+    function saveStorage(guess) {
         console.log(guess);
         console.log("Saving to storage");
         localStorage.setItem("guessGame", guess);
         console.log("Saved");
-      }
+    }
     
-      function clearStorage() {
+    function clearStorage() {
         localStorage.clear("guessGame");
         console.log("Cleared storage");
-      }
+    }
 
     //triggers fetchcities function when refreshbutton is clicked
     refreshButton.addEventListener('click', fetchCities);
@@ -151,17 +151,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayResults(data) {
     // <h2>Results</h2>
         resultsContainer.innerHTML += `            
-                <p><strong>City: </strong>${currentCity}</p>
-                <p><strong>Your guess: </strong> ${data["user guess"]} ${
-                data["unit"]
-                }</p>
-                <p><strong>Result: </strong>${
-                    checkScore(data["user guess"], currentTemp, false)
-                    ? " Win"
-                    : " Fail"
-                }</p>
-                <p><strong>Actual temp: </strong>${currentTemp}</p>
-                <br></br>            
+            <p><strong>City: </strong>${currentCity}</p>
+            <p><strong>Your guess: </strong> ${data["user guess"]} ${
+            data["unit"]
+            }</p>
+            <p><strong>Result: </strong>${
+                checkScore(data["user guess"], currentTemp, false)
+                ? " Win"
+                : " Fail"
+            }</p>
+            <p><strong>Actual temp: </strong>${currentTemp}</p>
+            <br></br>            
             `;
         saveStorage(resultsContainer.innerHTML);
     }
